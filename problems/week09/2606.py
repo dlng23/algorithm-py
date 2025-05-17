@@ -1,6 +1,6 @@
 n = int(input())
 m = int(input())
-n, m = map(int, input().split())
+
 graph = [[] for _ in range(n + 1)]
 visited = [False] * (n + 1)
 
@@ -9,16 +9,15 @@ for _ in range(m):
     graph[a].append(b)
     graph[b].append(a)
 
+
 def dfs(x):
+    count = 0
     visited[x] = True
     for i in graph[x]:
         if not visited[i]:
-            dfs(i)
+            count += 1 + dfs(i)
+    return count        
 
-count = 0
-for i in range(1, n + 1):
-    if not visited[i]:
-        dfs(i)
-        count += 1
+num = dfs(1)
 
-print(count)
+print(num)
